@@ -18,9 +18,12 @@ axios.defaults.params = {
 };
 
 export const getMovies = async () => {
-  try {
+    try {
+      console.log(axios.defaults);
     const { data } = await axios.get('trending/movie/day');
-    return data.results;
+       console.log(data);
+      return data.results;
+     
   } catch (error) {
     console.log('error', { error });
     return [];
