@@ -1,5 +1,5 @@
 // import css from './Home.module.css';
-import { getMovies } from '../../components/Api';
+import { getMoviesTrending } from '../../components/Api';
 
 import { useState, useEffect } from 'react';
 
@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(
     () => async () => {
       try {
-        const LoadedMovies = await getMovies();
+        const LoadedMovies = await getMoviesTrending();
         setMovies(LoadedMovies);
         setIsLoading(false);
       } catch (error) {
