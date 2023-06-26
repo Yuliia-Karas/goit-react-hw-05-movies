@@ -1,6 +1,7 @@
 // import css from './Home.module.css';
 import { getMoviesTrending } from '../../components/Api';
-
+import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 export default function Home() {
@@ -36,12 +37,14 @@ export default function Home() {
 
   return (
     <div>
-          <h1>Trending today</h1>
-          <ul>
-              {movies.map(movie => (
-                  <li key={movie.id}> {movie.title}</li>))}
-          </ul>
-                </div>
+      <h1>Trending today</h1>
+      <Link to="/movies/:movieId">
+        <ul>
+          {movies.map(movie => (
+            <li key={movie.id}> {movie.title}</li>
+          ))}
+        </ul>
+      </Link>
+    </div>
   );
 }
-

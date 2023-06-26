@@ -15,7 +15,7 @@ export default function Header() {
           Movies
         </NavLink>
         </div>
-        <Outlet></Outlet>
+        <Outlet/>
     </div>
       
     );

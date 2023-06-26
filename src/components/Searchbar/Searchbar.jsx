@@ -9,7 +9,7 @@ export default function Searchbar() {
           type="text"
           autoComplete="off"
           autoFocus
-          placeholder="Search images and photos"
+          placeholder="Enter key word for search films"
         //   value={name}
         //   onChange={handleChange}
         />

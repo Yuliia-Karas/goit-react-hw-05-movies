@@ -1,10 +1,12 @@
 // import css from './Movies.module.css';
 
+import Searchbar from "components/Searchbar/Searchbar";
+
 export default function Movies() {
   return (
     <div>
       Movies
-      {/* {Movies.map(movie => {return <div key='search-movies'></div}} */}
+      <Searchbar/>
     </div>
   );
 }
