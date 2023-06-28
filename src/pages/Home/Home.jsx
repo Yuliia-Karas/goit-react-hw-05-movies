@@ -1,7 +1,6 @@
 // import css from './Home.module.css';
 import { getMoviesTrending } from '../../components/Api';
 import { Link } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 export default function Home() {
@@ -32,19 +31,20 @@ export default function Home() {
   }
 
   if (isError) {
-    return 'Error while loading posts...';
+    return 'Error while loading movies...';
   }
 
   return (
     <div>
       <h1>Trending today</h1>
-      <Link to="/movies/:movieId">
-        <ul>
-          {movies.map(movie => (
-            <li key={movie.id}> {movie.title}</li>
-          ))}
-        </ul>
-      </Link>
+
+      <ul>
+        {movies.map(movie => (
+          <Link to={`/movies/${movie.id}`} key={movie.id}>
+            <li>{movie.title}</li>
+          </Link>
+        ))}
+      </ul>
     </div>
   );
 }

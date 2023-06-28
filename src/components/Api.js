@@ -34,7 +34,7 @@ export const getMovieDetails = async movieId => {
     console.log(axios.defaults);
     const { data } = await axios.get(`movie/${movieId}`);
     console.log(data);
-    return data.results;
+    return data;
   } catch (error) {
     console.log('error', { error });
     return [];
@@ -59,15 +59,27 @@ export const searchMovies = async query => {
 // https://api.themoviedb.org/3/movie/{movie_id}/credits
 export const getMovieCredits = async movieId => {
   try {
-    console.log(axios.defaults);
-    const { data } = await axios.get(`movie/${movieId}/credits`);
+       const { data } = await axios.get(`movie/${movieId}/credits`);
     console.log(data);
-    return data.results;
+    return data.cast;
   } catch (error) {
     console.log('error', { error });
     return [];
   }
 };
+
+// const getMovieCredits = async movieId => {
+//   const apiKey = 'YOUR_API_KEY'; // Замініть на свій ключ API TMDb
+//   const url = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}`;
+
+//   try {
+//     const response = await axios.get(url);
+//     return response.data;
+//   } catch (error) {
+//     console.error('Error fetching movie credits:', error);
+//     return null;
+//   }
+// };
 
 // /movies/get-movie-reviews запит оглядів для сторінки кінофільму.
 // https://api.themoviedb.org/3/movie/{movie_id}/reviews
