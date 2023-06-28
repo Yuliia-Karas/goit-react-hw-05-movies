@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 const KEY = 'f18e42173aa93d2e63f9c91aa9147cf6';
-const BASE_URL = 'https://api.themoviedb.org/3/';
+const BASE_URL = 'https://api.themoviedb.org/3';
 
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.params = {
@@ -17,7 +17,7 @@ axios.defaults.params = {
 export const getMoviesTrending = async () => {
     try {
       console.log(axios.defaults);
-    const { data } = await axios.get('trending/movie/day');
+    const { data } = await axios.get('/trending/movie/day');
        console.log(data);
       return data.results;
      
