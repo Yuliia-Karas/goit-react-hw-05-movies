@@ -1,5 +1,5 @@
 // import css from './Home.module.css';
-import { getMoviesTrending } from '../../components/Api';
+import { getMoviesTrending } from 'utils/Api';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 

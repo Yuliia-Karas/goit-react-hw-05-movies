@@ -2,7 +2,7 @@
 import { useParams } from 'react-router-dom';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getMovieDetails } from 'components/Api';
+import { getMovieDetails } from 'utils/Api';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
