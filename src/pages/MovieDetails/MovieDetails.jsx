@@ -2,49 +2,75 @@
 import { useParams } from 'react-router-dom';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getMovieDetails } from 'utils/Api';
+import { getMovieDetails } from 'components/Api';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
-
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-  const [movie, setMovie] = useState('');
+  const [movie, setMovie] = useState(null);
 
   const location = useLocation();
   const backLinkHref = location.state?.from ?? '/movies';
-  useEffect(
-    () => async () => {
+
+  useEffect(() => {
+    const fetchMovieData = async () => {
       try {
-        const MovieDetails = await getMovieDetails(movieId);
-        console.log(MovieDetails);
-        setMovie(MovieDetails);
+        const movieData = await getMovieDetails(movieId);
+        setMovie(movieData);
       } catch (error) {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
+        console.log('error', error);
+        setMovie(null);
       }
-    },
-    [movieId]
-  );
+    };
 
-  console.log(movie);
+    fetchMovieData();
+  }, [movieId]);
 
-  if (isLoading) {
-    return 'Loading data...';
+  
+
+  if (!movie) {
+    return (
+      <div>
+       Loading ...
+      </div>
+    );
   }
 
-  if (isError) {
-    return 'Error while loading movie...';
-  }
+  // const { movieId } = useParams();
+
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [isError, setIsError] = useState(false);
+  // const [movie, setMovie] = useState('');
+
+  // const location = useLocation();
+  // const backLinkHref = location.state?.from ?? '/movies';
+
+  // useEffect(
+  //   () => async () => {
+  //     try {
+  //       const MovieDetails = await getMovieDetails(movieId);
+  //       console.log(MovieDetails);
+  //       setMovie(MovieDetails);
+  //     } catch (error) {
+  //       setIsError(true);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   },
+  //   [movieId]
+  // );
+
+  // if (isLoading) {
+  //   return 'Loading data...';
+  // }
+
+  // if (isError) {
+  //   return 'Error while loading movie...';
+  // }
 
   return (
     <main>
-      const {movieId} = useParams(); console.log({movieId}); MovieDetails with
-      id {movieId}
       <Link to={backLinkHref}>Go back</Link>
       <div>
-        hello
         <h2>{movie.title}</h2>
         <img
           width="200px"

@@ -1,5 +1,5 @@
 // import css from './Home.module.css';
-import { getMoviesTrending } from 'utils/Api';
+import { getMoviesTrending } from '../../components/Api';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
@@ -9,21 +9,20 @@ export default function Home() {
   const [isError, setIsError] = useState(false);
   const [movies, setMovies] = useState([]);
 
-  useEffect(
-    () => async () => {
+  const fechData = async () =>  {
       try {
         const LoadedMovies = await getMoviesTrending();
         setMovies(LoadedMovies);
-        setIsLoading(false);
       } catch (error) {
         setIsError(true);
-        setIsLoading(false);
       } finally {
         setIsLoading(false);
       }
-    },
-    []
-  );
+  }
+  
+  
+  useEffect(() => { fechData() }, []);
+  
   console.log(movies);
 
   if (isLoading) {

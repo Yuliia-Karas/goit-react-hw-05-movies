@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMovieCredits } from 'utils/Api';
+import { getMovieCredits } from 'components/Api';
 
 export default function Cast() {
   const { movieId } = useParams();
@@ -26,10 +26,9 @@ export default function Cast() {
 
   return (
     <div>
-      Cast
-      {/* credits && credits.length {'>'}0? (
+      
       <ul>
-        {credits.cast.map(credit => {
+        {credits &&credits.length>0 && credits.map(credit => {
           return (
             <li key={credit.id}>
               <img
@@ -48,7 +47,8 @@ export default function Cast() {
           );
         })}
       </ul>
-      ) */}
+      
+      
     </div>
   );
 }

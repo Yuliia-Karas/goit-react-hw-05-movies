@@ -1,26 +1,35 @@
 import css from './Searchbar.module.css';
 // import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
+import { searchMovies } from "components/Api"
 
- function Searchbar({ onSubmit }) {
+function Searchbar({ setSearchParams, onSubmit, setMovies }) {
   const [query, setQuery] = useState('');
 
-    const handleChange = ({ target }) => {
-        setQuery(target.value)
-};  
-          
- const handleSubmit = event => {
-   event.preventDefault();
-   onSubmit(query);
-   setQuery('');
- };
+  async function handleSubmit(event) {
+    event.preventDefault();
+    try {
+      const results = await searchMovies({ query });
+      console.log(results);
+      setMovies(results);
+    } catch (error) {
+      console.log('error', error);
+    }
+    // todo: зберігати стейт в батьківський компонент про фільм
 
-  
+    // searchMovies({ query });
+  };
+
+
+
+  const handleChange = ({ target: { value } }) => {
+    setQuery(value);
+  };
+
   return (
     <div className={css.searchbar}>
       <form className={css.searchForm} onSubmit={handleSubmit}>
-                <input
-          className={css.SearchForm__input}
+        <input
           onChange={handleChange}
           name="query"
           type="text"
@@ -29,8 +38,8 @@ import { useState } from 'react';
           placeholder="Search movie"
           value={query}
         ></input>
-        <button type="submit" className={css.SearchForm__button}>
-          <span className={css.SearchForm__button__label}>Search</span>
+        <button type="submit">
+          <span>Search</span>
         </button>
       </form>
     </div>
