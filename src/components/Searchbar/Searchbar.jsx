@@ -1,7 +1,11 @@
-import css from './Searchbar.module.css';
-// import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
-import { searchMovies } from "components/Api"
+import { searchMovies } from 'components/Api';
+import {
+  SearchbarContainer,
+  SearchInput,
+  SearchButton,
+} from './Searchbar.styled';
+import PropTypes from 'prop-types';
 
 function Searchbar({ setSearchParams, onSubmit, setMovies }) {
   const [query, setQuery] = useState('');
@@ -10,26 +14,21 @@ function Searchbar({ setSearchParams, onSubmit, setMovies }) {
     event.preventDefault();
     try {
       const results = await searchMovies({ query });
-      console.log(results);
       setMovies(results);
     } catch (error) {
       console.log('error', error);
     }
     // todo: зберігати стейт в батьківський компонент про фільм
-
-    // searchMovies({ query });
-  };
-
-
+  }
 
   const handleChange = ({ target: { value } }) => {
     setQuery(value);
   };
 
   return (
-    <div className={css.searchbar}>
-      <form className={css.searchForm} onSubmit={handleSubmit}>
-        <input
+    <SearchbarContainer>
+      <form onSubmit={handleSubmit}>
+        <SearchInput
           onChange={handleChange}
           name="query"
           type="text"
@@ -37,12 +36,18 @@ function Searchbar({ setSearchParams, onSubmit, setMovies }) {
           autoFocus
           placeholder="Search movie"
           value={query}
-        ></input>
-        <button type="submit">
+        ></SearchInput>
+        <SearchButton type="submit">
           <span>Search</span>
-        </button>
+        </SearchButton>
       </form>
-    </div>
+    </SearchbarContainer>
   );
 }
 export default Searchbar;
+
+Searchbar.propTypes = {
+  setSearchParams: PropTypes.func,
+  onSubmit: PropTypes.func,
+  setMovies: PropTypes.func,
+};

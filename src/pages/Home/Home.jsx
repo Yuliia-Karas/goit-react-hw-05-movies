@@ -1,7 +1,8 @@
-// import css from './Home.module.css';
 import { getMoviesTrending } from '../../components/Api';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { HomeContainer, ListItem, List } from './Home.styled';
+import PropTypes from 'prop-types';
 
 export default function Home() {
   // HTTP запит, домашня сторінка зі списком популярних кінофільмів
@@ -23,9 +24,7 @@ export default function Home() {
   
   useEffect(() => { fechData() }, []);
   
-  console.log(movies);
-
-  if (isLoading) {
+    if (isLoading) {
     return 'Loading data...';
   }
 
@@ -34,16 +33,20 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <HomeContainer>
       <h1>Trending today</h1>
 
-      <ul>
+      <List>
         {movies.map(movie => (
           <Link to={`/movies/${movie.id}`} key={movie.id}>
-            <li>{movie.title}</li>
+            <ListItem>{movie.title}</ListItem>
           </Link>
         ))}
-      </ul>
-    </div>
+      </List>
+    </HomeContainer>
   );
 }
+
+Home.propTypes = {
+  getMoviesTrending: PropTypes.func,
+};

@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieReviews } from 'components/Api';
+import PropTypes from 'prop-types';
 
 export default function Reviews() {
   const { movieId } = useParams();
@@ -12,7 +13,6 @@ export default function Reviews() {
     const fetchReviews = async () => {
       try {
         const reviews = await getMovieReviews(movieId);
-        console.log(reviews);
         setReviews(reviews);
       } catch (error) {
         console.log('error', { error });
@@ -20,7 +20,6 @@ export default function Reviews() {
       }
     };
     fetchReviews();
-    
   }, [movieId]);
 
   return (
@@ -43,3 +42,6 @@ export default function Reviews() {
   );
 }
 
+Reviews.propTypes = {
+  movieId: PropTypes.string,
+};

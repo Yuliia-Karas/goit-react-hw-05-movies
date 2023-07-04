@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { NavLink, useSearchParams } from 'react-router-dom';
 import { searchMovies } from 'components/Api';
+import PropTypes from 'prop-types';
 
 export default function Movies() {
   const [movies, setMovies] = useState([]);
@@ -25,9 +26,6 @@ export default function Movies() {
 
     fetchMovies();
   }, [searchParams]);
-  console.log(movies);
-
-  
 
   const handleFormSubmit = ({ query }) => {
     setSearchParams(query);
@@ -53,10 +51,13 @@ export default function Movies() {
                 </li>
               );
             })}{' '}
-            {/* movies={movies} */}
           </ul>
         )}
       </>
     </div>
   );
 }
+
+Movies.propTypes = {
+  searchMovies: PropTypes.func,
+};

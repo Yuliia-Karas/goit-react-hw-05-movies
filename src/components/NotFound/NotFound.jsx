@@ -11,7 +11,3 @@ function NotFound() {
 }
 
 export default NotFound;
-//  <div>Page not found</div>
-//         <div>
-//             <Link to='/'>Go back home</Link>
-//         </div>

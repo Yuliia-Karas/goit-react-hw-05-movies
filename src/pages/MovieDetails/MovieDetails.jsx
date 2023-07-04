@@ -1,8 +1,14 @@
-// import css from './MovieDetails.module.css';
 import { useParams } from 'react-router-dom';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMovieDetails } from 'components/Api';
+import {
+  MovieDetailsContainer,
+  MovieDetailsGenres,
+  GoBackLink,
+  MovieInfo,
+} from './MovieDetails.styled';
+import PropTypes from 'prop-types';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
@@ -25,70 +31,33 @@ export default function MovieDetails() {
     fetchMovieData();
   }, [movieId]);
 
-  
-
   if (!movie) {
-    return (
-      <div>
-       Loading ...
-      </div>
-    );
+    return <div>Loading ...</div>;
   }
-
-  // const { movieId } = useParams();
-
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [isError, setIsError] = useState(false);
-  // const [movie, setMovie] = useState('');
-
-  // const location = useLocation();
-  // const backLinkHref = location.state?.from ?? '/movies';
-
-  // useEffect(
-  //   () => async () => {
-  //     try {
-  //       const MovieDetails = await getMovieDetails(movieId);
-  //       console.log(MovieDetails);
-  //       setMovie(MovieDetails);
-  //     } catch (error) {
-  //       setIsError(true);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   },
-  //   [movieId]
-  // );
-
-  // if (isLoading) {
-  //   return 'Loading data...';
-  // }
-
-  // if (isError) {
-  //   return 'Error while loading movie...';
-  // }
 
   return (
     <main>
-      <Link to={backLinkHref}>Go back</Link>
-      <div>
-        <h2>{movie.title}</h2>
+      <GoBackLink to={backLinkHref}>Go back</GoBackLink>
+      <MovieDetailsContainer>
         <img
           width="200px"
           height="300px"
           src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
           alt={movie.title}
         />
-        <p>User Scrore: {Math.round(movie.vote_average * 10)}%</p>
+        <h2>{movie.title}</h2>
+        <MovieInfo>
+          User Scrore: {Math.round(movie.vote_average * 10)}%
+        </MovieInfo>
         <h3>Overview</h3>
-        <p>{movie.overview}</p>
+        <MovieInfo>{movie.overview}</MovieInfo>
         <h3>Genres</h3>
-        <div>
-          {' '}
+        <MovieDetailsGenres>
           {movie.genres.map(genr => {
             return <p key={genr.id}>{genr.name}</p>;
           })}
-        </div>
-      </div>
+        </MovieDetailsGenres>
+      </MovieDetailsContainer>
       <h3>Additional information</h3>
       <ul>
         <li>
@@ -102,3 +71,7 @@ export default function MovieDetails() {
     </main>
   );
 }
+
+MovieDetails.propTypes = {
+  getMovieDetails: PropTypes.func,
+};

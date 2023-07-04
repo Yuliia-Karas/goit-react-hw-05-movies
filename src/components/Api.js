@@ -43,12 +43,8 @@ export const getMovieDetails = async movieId => {
 // https://api.themoviedb.org/3/search/movie
 export const searchMovies = async ({ query }) => {
   try {
-    console.log(axios.defaults);
-
     const { data } = await axios.get(`search/movie?query=${query}`);
     console.log(data);
-
-    // return data.results;
     return data;
   } catch (error) {
     console.log('error', { error });
@@ -73,7 +69,6 @@ export const getMovieCredits = async movieId => {
 // https://api.themoviedb.org/3/movie/{movie_id}/reviews
 export const getMovieReviews = async movieId => {
   try {
-    console.log(axios.defaults);
     const { data } = await axios.get(`movie/${movieId}/reviews`);
     console.log(data);
     return data.results;
@@ -82,14 +77,3 @@ export const getMovieReviews = async movieId => {
     return [];
   }
 };
-
-// Приклад cURL
-
-// curl --request GET \
-//      --url 'https://api.themoviedb.org/3/movie/11?api_key=f18e42173aa93d2e63f9c91aa9147cf6'
-
-// Більше того, ви можете надсилати кілька запитів, просто розділяючи значення комами:
-// приклад
-// https://api.themoviedb.org/3/movie/157336?api_key=f18e42173aa93d2e63f9c91aa9147cf6&append_to_response=videos,images
-
-// 'https://api.themoviedb.org/3/trending/all/day?language=en-US', options;
