@@ -1,8 +1,7 @@
 // import css from './Movies.module.css';
 
 import Searchbar from 'components/Searchbar/Searchbar';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, useSearchParams } from 'react-router-dom';
 import { searchMovies } from 'components/Api';
 import PropTypes from 'prop-types';
@@ -12,7 +11,8 @@ export default function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    const curentQuery = searchParams.get('query');
+    const curentQuery = searchParams.get('query') ?? '';
+
     if (!curentQuery) return;
 
     const fetchMovies = async () => {
@@ -27,16 +27,21 @@ export default function Movies() {
     fetchMovies();
   }, [searchParams]);
 
-  const handleFormSubmit = ({ query }) => {
-    setSearchParams(query);
+  // const updateQueryString = ({ query }) => {
+  //   const nextParams = { query } !== '' ? { query } : {};
+  //   setSearchParams(nextParams);
+  // };
+
+  const updateQueryString = ({ query }) => {
+    setSearchParams({ query });
   };
 
   return (
     <div>
       <Searchbar
         setSearchParams={setSearchParams}
-        onSubmit={handleFormSubmit}
         setMovies={setMovies}
+        onChange={updateQueryString}
       />
 
       <>

@@ -7,7 +7,7 @@ import {
 } from './Searchbar.styled';
 import PropTypes from 'prop-types';
 
-function Searchbar({ setSearchParams, onSubmit, setMovies }) {
+function Searchbar({ setSearchParams, setMovies }) {
   const [query, setQuery] = useState('');
 
   async function handleSubmit(event) {
@@ -21,15 +21,23 @@ function Searchbar({ setSearchParams, onSubmit, setMovies }) {
     // todo: зберігати стейт в батьківський компонент про фільм
   }
 
-  const handleChange = ({ target: { value } }) => {
-    setQuery(value);
+  // const handleChange = ({ target: { value } }) => {
+  //   setQuery(value);
+  // };
+
+  const handleInputChange = e => {
+    setQuery(e.target.value);
   };
+
+ 
 
   return (
     <SearchbarContainer>
       <form onSubmit={handleSubmit}>
         <SearchInput
-          onChange={handleChange}
+          
+          onChange={handleInputChange}
+          
           name="query"
           type="text"
           autoComplete="off"
