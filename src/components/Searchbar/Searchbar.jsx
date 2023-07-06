@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { searchMovies } from 'components/Api';
 import {
   SearchbarContainer,
   SearchInput,
@@ -7,37 +6,26 @@ import {
 } from './Searchbar.styled';
 import PropTypes from 'prop-types';
 
-function Searchbar({ setSearchParams, setMovies }) {
+function Searchbar({ setSearchParams }) {
   const [query, setQuery] = useState('');
 
   async function handleSubmit(event) {
     event.preventDefault();
-    try {
-      const results = await searchMovies({ query });
-      setMovies(results);
-    } catch (error) {
-      console.log('error', error);
-    }
+
+    setSearchParams({ query });
+    console.log(event.target.value);
     // todo: зберігати стейт в батьківський компонент про фільм
   }
-
-  // const handleChange = ({ target: { value } }) => {
-  //   setQuery(value);
-  // };
 
   const handleInputChange = e => {
     setQuery(e.target.value);
   };
 
- 
-
   return (
     <SearchbarContainer>
       <form onSubmit={handleSubmit}>
         <SearchInput
-          
           onChange={handleInputChange}
-          
           name="query"
           type="text"
           autoComplete="off"

@@ -1,5 +1,5 @@
 import { getMoviesTrending } from '../../components/Api';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { HomeContainer, ListItem, List } from './Home.styled';
 import PropTypes from 'prop-types';
@@ -9,6 +9,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [movies, setMovies] = useState([]);
+  const location = useLocation();
 
   const fechData = async () =>  {
       try {
@@ -38,7 +39,11 @@ export default function Home() {
 
       <List>
         {movies.map(movie => (
-          <Link to={`/movies/${movie.id}`} key={movie.id}>
+          <Link
+            to={`/movies/${movie.id}`}
+            key={movie.id}
+            state={{ from: location }}
+          >
             <ListItem>{movie.title}</ListItem>
           </Link>
         ))}

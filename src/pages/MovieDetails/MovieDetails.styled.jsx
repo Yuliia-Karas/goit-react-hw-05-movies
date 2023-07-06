@@ -28,7 +28,7 @@ export const GoBackLink = styled(Link)`
   color: black;
   font-size: 20px;
   font-weight: 600;
-   background-color: #b4afaf;
+  background-color: #b4afaf;
   border: 0.5px solid #b4afaf;
   border-radius: 10px;
   padding: 5px 5px;

@@ -1,15 +1,13 @@
-// import css from './Movies.module.css';
-
 import Searchbar from 'components/Searchbar/Searchbar';
 import { useState, useEffect } from 'react';
-import { NavLink, useSearchParams } from 'react-router-dom';
+import { NavLink, useSearchParams, useLocation } from 'react-router-dom';
 import { searchMovies } from 'components/Api';
 import PropTypes from 'prop-types';
 
 export default function Movies() {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const location = useLocation();
   useEffect(() => {
     const curentQuery = searchParams.get('query') ?? '';
 
@@ -17,7 +15,7 @@ export default function Movies() {
 
     const fetchMovies = async () => {
       try {
-        const results = await searchMovies(curentQuery);
+        const results = await searchMovies({ query: curentQuery });
         setMovies(results);
       } catch (error) {
         console.log('error', error);
@@ -27,22 +25,9 @@ export default function Movies() {
     fetchMovies();
   }, [searchParams]);
 
-  // const updateQueryString = ({ query }) => {
-  //   const nextParams = { query } !== '' ? { query } : {};
-  //   setSearchParams(nextParams);
-  // };
-
-  const updateQueryString = ({ query }) => {
-    setSearchParams({ query });
-  };
-
   return (
     <div>
-      <Searchbar
-        setSearchParams={setSearchParams}
-        setMovies={setMovies}
-        onChange={updateQueryString}
-      />
+      <Searchbar setSearchParams={setSearchParams} />
 
       <>
         {movies && movies.results && (
@@ -50,7 +35,7 @@ export default function Movies() {
             {movies.results.map(result => {
               return (
                 <li key={result.id}>
-                  <NavLink to={`${result.id}`}>
+                  <NavLink to={`${result.id}`} state={{ from: location }}>
                     <p>{result.original_title}</p>
                   </NavLink>
                 </li>
